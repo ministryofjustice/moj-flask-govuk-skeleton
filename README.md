@@ -29,7 +29,7 @@ use `pip freeze > requirements.in` To update the requirements when installing ne
 
 ### Run the service:
 
-`flask --app flaskr run --debug`
+`flask --app app run --debug`
 
 ## Prerequisites
 
