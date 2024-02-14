@@ -27,6 +27,20 @@ Activate environment:
 
 use `pip freeze > requirements.in` To update the requirements when installing new packages.
 
+### Create all assets:
+
+CSS and JS files needed.
+
+`./build.sh`
+
+### Set up local environment variables:
+
+Create local file `.env`
+
+Copy from `.env.example` in your `.env`
+
+Don't worry you can't commit the `.env` file.
+
 ### Run the service:
 
 `flask --app app run --debug`
