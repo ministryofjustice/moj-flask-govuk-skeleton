@@ -4,7 +4,6 @@ services:
     build: .
     restart: always
     environment:
-      - FLASK_ENV=development
       - CONTACT_EMAIL=[contact email]
       - CONTACT_PHONE=[contact phone]
       - DEPARTMENT_NAME=[name of department]
