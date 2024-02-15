@@ -1,6 +1,8 @@
 blinker==1.7.0
 Brotli==1.1.0
+cffi==1.16.0
 click==8.1.7
+cryptography==42.0.2
 deepmerge==1.1.1
 Deprecated==1.2.14
 Flask==3.0.2
@@ -21,7 +23,9 @@ MarkupSafe==2.1.5
 mdurl==0.1.2
 ordered-set==4.1.0
 packaging==23.2
+pycparser==2.21
 Pygments==2.17.2
+pyOpenSSL==24.0.0
 python-dotenv==1.0.1
 rich==13.7.0
 typing_extensions==4.9.0
