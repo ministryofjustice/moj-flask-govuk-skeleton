@@ -48,7 +48,7 @@ Don't worry you can't commit the `.env` file.
 Normally Flask wants to run on port `5000` which is often conflicts with Apples Airplay port. Advised to use different
 port.
 
-`flask --app app run --debug -port=8000`
+`flask --app app run --debug --port=8000`
 
 ## Running in Docker
 
