@@ -1,21 +1,34 @@
 FROM python:3.11-slim
 
-RUN useradd containeruser
-
-WORKDIR /home/containeruser
-
-COPY app app
-COPY govuk-frontend-flask.py config.py requirements.in ./
-RUN pip install -r requirements.in \
-    && chown -R containeruser:containeruser ./
-
 # Set environment variables
-ENV FLASK_APP=govuk-frontend-flask.py \
-    PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1
+ENV FLASK_APP=govuk-frontend-flask.py
+ENV FLASK_RUN_HOST=0.0.0.0
+ENV FLASK_RUN_PORT=8000
+ENV PYTHONUNBUFFERED=1
 
+# Set the working directory in the container
+WORKDIR /usr/src/app
+
+# Create a non-root user
+RUN adduser --disabled-password --gecos '' containeruser
+
+# Change ownership of the working directory to the non-root user
+RUN chown -R containeruser:containeruser /usr/src/app
+
+# Copy the dependencies file to the working directory
+COPY govuk-frontend-flask.py config.py requirements.in ./
+
+# Install any needed dependencies
+RUN pip install --no-cache-dir -r requirements.in
+
+# Copy the project code into the working directory
+COPY . .
+
+# Switch to the non-root user
 USER containeruser
 
+# Expose the Flask port
 EXPOSE 8000
 
-CMD ["flask", "--app", "app", "run", "--debug"]
+# Run the Flask application
+CMD ["flask", "run"]

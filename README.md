@@ -11,7 +11,9 @@ This is a template [Flask](https://flask.palletsprojects.com) app using the [GOV
 
 The app is provided intentionally bare, with just the essential parts that all services need, such as error pages, accessibility statement, cookie banner, cookie page and privacy notice. It uses a number of other packages to provide the [features](#features) described below with sensible and best-practice defaults. Please read the [next steps](#next-steps) section for guidance on how to start building out your app on top of this template.
 
-## How to install locally:
+# Getting started
+
+## Local development:
 
 ### Setup virtual environment:
 
@@ -43,21 +45,16 @@ Don't worry you can't commit the `.env` file.
 
 ### Run the service:
 
-`flask --app app run --debug`
+Normally Flask wants to run on port `5000` which is often conflicts with Apples Airplay port. Advised to use different
+port.
 
-## Prerequisites
+`flask --app app run --debug -port=8000`
 
-### Required
+## Running in Docker
 
-- Docker
+For local development and deployments.
 
-## Getting started
-
-### Create a new repository
-
-[Create a new repository](https://github.com/LandRegistry/govuk-frontend-flask/generate) using this template, with the same directory structure and files. Then clone a local copy of your newly created repository.
-
-### Set local environment variables
+### Set local Docker environment variables
 
 In the `compose.yml` file you will find a number of environment variables. These are injected as global variables into the app and pre-populated into page templates as appropriate. Enter your specific service information for the following:
 
@@ -75,19 +72,11 @@ You must also set a new unique `SECRET_KEY`, which is used to securely sign the 
 python -c 'import secrets; print(secrets.token_hex())'
 ```
 
-### Get the latest GOV.UK Frontend assets
-
-```shell
-./build.sh
-```
-
 ### Run containers
 
 ```shell
 docker compose up --build
 ```
-
-You should now have the app running on <https://localhost:8000/>. Accept the browsers security warning due to the self-signed HTTPS certificate to continue.
 
 ## Demos
 
