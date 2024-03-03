@@ -41,6 +41,7 @@ def create_app(config_class=Config):
             "'self'",
             "'sha256-GUQ5ad8JK5KmEWmROf3LZd9ge94daqNvd8xy9YS1iDw='",
             "'sha256-EOlYC7YurunqHZxQoZ/zL5TKc/rPajg45h85KVyb5So='",
+            "'sha256-l1eTVSK8DTnK8+yloud7wZUqFrI0atVo6VlC6PJvYaQ='",# gov uk inline
         ],
     }
 
