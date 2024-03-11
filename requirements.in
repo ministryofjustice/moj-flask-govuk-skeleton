@@ -3,6 +3,7 @@ Brotli==1.1.0
 cffi==1.16.0
 click==8.1.7
 cryptography==42.0.2
+cssmin==0.2.0
 deepmerge==1.1.1
 Deprecated==1.2.14
 Flask==3.0.2
