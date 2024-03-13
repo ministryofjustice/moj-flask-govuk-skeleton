@@ -50,6 +50,8 @@ port.
 
 `flask --app app run --debug --port=8000 --cert=adhoc`
 
+If using Chrome, you may encounter the browser stating that "Your connection is not private". In this instance, select the 'Advanced' option and 'Proceed' to your local development server.  
+
 ## Running in Docker
 
 For local development and deployments.
