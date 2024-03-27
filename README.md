@@ -15,44 +15,53 @@ The app is provided intentionally bare, with just the essential parts that all s
 
 # Getting started
 
-## Local development:
+## Local install for development:
 
-### Setup virtual environment:
+### Setup
 
-`python3 -m venv .venv`
+Create a virtual environment and install the python dependencies:
 
-Activate environment:
+```
+cd refer-frontend
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.in -r requirements_dev.in
+```
 
-`. .venv/bin/activate`
+Note on dependencies:
 
-### Install dependencies:
+* requirements.in are the direct dependencies of the app.
+* requirements_dev.in are the dependencies needed only during development - linters, code formatting etc
+* (requirements*.txt - in a production system we'd generate a .txt from each .in file. The .txt file includes all direct dependencies in the .in, plus their dependencies too (indirect dependencies). And all dependencies have their exact version specified ('pinned'). This ensures production environment installs exactly the same as the test environment and what developers install.)
 
-`pip install -r requirements.in`
+### Assets
 
-use `pip freeze > requirements.in` To update the requirements when installing new packages.
+Ensure you have the required CSS and JS files in place:
 
-### Create all assets:
+```
+./build.sh
+```
 
-CSS and JS files needed.
+### Configuration environment variables
 
-`./build.sh`
+Create your local config file `.env` from the template file:
 
-### Set up local environment variables:
+```shell
+cp .env.example .env
+```
 
-Create local file `.env`
+Don't worry, you can't commit your `.env` file.
 
-Copy from `.env.example` in your `.env`
+### Run the service
 
-Don't worry you can't commit the `.env` file.
+```
+source .venv/bin/activate
+flask --app app run --debug --port=8000
+```
 
-### Run the service:
+Now you can browse: http://127.0.0.1:8000
 
-Normally Flask wants to run on port `5000` which is often conflicts with Apples Airplay port. Advised to use different
-port.
-
-`flask --app app run --debug --port=8000`
-
-**To note:** If using HTTPS in your browser, you may encounter the browser stating that "Your connection is not private". In this instance, select the 'Advanced' option and 'Proceed' to your local development server.  
+(The default port for flask apps is 5000, but on Macs this is often found to conflict with Apple's Airplay service, hence using another port here.)
 
 ## Running in Docker
 
@@ -92,6 +101,21 @@ To run the tests:
 
 ```shell
 python -m pytest --cov=app --cov-report=term-missing --cov-branch
+```
+
+## Code formatting and linting
+
+The Flake8 linter looks for code quality issues. Ensure there are no flake8 issues before committing. To run it:
+
+```shell
+flake8
+```
+
+All code should be formatted with black and isort before committing. To run them:
+
+```shell
+black .
+isort .
 ```
 
 ## Features
