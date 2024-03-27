@@ -1,4 +1,6 @@
-# GOV.UK Frontend Flask
+# MOJ GOV.UK Frontend Flask
+
+This is a clone from the HM Land Registery Flask skeleton [GOV.UK Frontend Flask](https://github.com/LandRegistry/govuk-frontend-flask). Thank you, Land Registry.
 
 ![govuk-frontend 5.1.0](https://img.shields.io/badge/govuk--frontend%20version-5.1.0-005EA5?logo=gov.uk&style=flat)
 
@@ -150,15 +152,5 @@ Uses [Flask Compress](https://github.com/colour-science/flask-compress) to compr
 Uses [Flask Limiter](https://flask-limiter.readthedocs.io/en/stable/) to set request rate limits on routes. The default rate limit is 2 requests per second _and_ 60 requests per minute (whichever is hit first) based on the client's remote IP address. Every time a request exceeds the rate limit, the view function will not get called and instead a [HTTP 429](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429) status will be returned.
 
 Rate limit storage can be backed by [Redis](https://redis.io/) using the `RATELIMIT_STORAGE_URL` config value in `config.py`, or fall back to in-memory if not present. Rate limit information will also be added to various [response headers](https://flask-limiter.readthedocs.io/en/stable/#rate-limiting-headers).
-
-## Contributors
-
-- [Matt Shaw](https://github.com/matthew-shaw) (Primary maintainer)
-
-## Support
-
-This software is provided _"as-is"_ without warranty. Support is provided on a _"best endeavours"_ basis by the maintainers and open source community.
-
-If you are a civil servant you can sign up to the [UK Government Digital Slack](https://ukgovernmentdigital.slack.com/signup) workspace to contact the maintainers listed [above](#contributors) and the community of people using this project in the [#govuk-design-system](https://ukgovernmentdigital.slack.com/archives/C6DMEH5R6) channel.
 
 Otherwise, please see the [contribution guidelines](CONTRIBUTING.md) for how to raise a bug report or feature request.
