@@ -161,10 +161,10 @@
 {% endblock %}
 
 {% block bodyEnd %}
-    <script type="module" src="{{ url_for('static', filename='govuk-frontend-5.1.0.min.js') }}"></script>
-    <script type="module">
+    <script nonce="{{ csp_nonce() }}" type="module" src="{{ url_for('static', filename='govuk-frontend-5.1.0.min.js') }}"></script>
+    <script nonce="{{ csp_nonce() }}" type="module">
         import { initAll } from "{{ url_for('static', filename='govuk-frontend-5.1.0.min.js') }}"
         initAll()
     </script>
-    {% assets "js" %}<script type="text/javascript" src="{{ ASSET_URL }}"></script>{% endassets %}
+    {% assets "js" %}<script nonce="{{ csp_nonce() }}" type="text/javascript" src="{{ ASSET_URL }}"></script>{% endassets %}
 {% endblock %}

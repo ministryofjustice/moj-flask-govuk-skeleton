@@ -40,7 +40,11 @@ def create_app(config_class=Config):
         "script-src": [
             "'self'",
             "'sha256-GUQ5ad8JK5KmEWmROf3LZd9ge94daqNvd8xy9YS1iDw='",
-            "'sha256-Kz4EP9b19sgi59wd7YVUvERScnOz2zwVyw9142VvnTg='",
+            "*.googletagmanager.com",
+        ],
+        "connect-src": [
+            "'self'",
+            "*.google-analytics.com",
         ],
     }
 
@@ -95,7 +99,15 @@ def create_app(config_class=Config):
     compress.init_app(app)
     csrf.init_app(app)
     limiter.init_app(app)
-    talisman.init_app(app, content_security_policy=csp, permissions_policy=permissions_policy)
+    talisman.init_app(app, 
+                      content_security_policy=csp, 
+                      permissions_policy=permissions_policy, 
+                      content_security_policy_nonce_in=["script-src"], 
+                      force_https=True,
+                      session_cookie_secure=True,
+                      session_cookie_http_only=True,
+                      session_cookie_samesite="Strict",)
+    
     WTFormsHelpers(app)
 
     # Create static asset bundles
