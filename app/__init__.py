@@ -99,7 +99,7 @@ def create_app(config_class=Config):
     compress.init_app(app)
     csrf.init_app(app)
     limiter.init_app(app)
-    talisman.init_app(app, 
+    talisman.init_app(app,
                       content_security_policy=csp, 
                       permissions_policy=permissions_policy, 
                       content_security_policy_nonce_in=["script-src"], 
@@ -107,7 +107,7 @@ def create_app(config_class=Config):
                       session_cookie_secure=True,
                       session_cookie_http_only=True,
                       session_cookie_samesite="Strict",)
-    
+
     WTFormsHelpers(app)
 
     # Create static asset bundles
@@ -119,8 +119,8 @@ def create_app(config_class=Config):
         assets.register("js", js)
 
     # Register blueprints
-    from app.demos import bp as demo_bp
-    from app.main import bp as main_bp
+    from app.demos.routes import bp as demo_bp
+    from app.main.routes import bp as main_bp
 
     app.register_blueprint(demo_bp)
     app.register_blueprint(main_bp)
