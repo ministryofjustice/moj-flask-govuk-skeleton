@@ -21,7 +21,7 @@ The app is provided intentionally bare, with just the essential parts that all s
 
 Create a virtual environment and install the python dependencies:
 
-```
+```shell
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.in -r requirements_dev.in
@@ -37,7 +37,7 @@ Note on dependencies:
 
 Ensure you have the required CSS and JS files in place:
 
-```
+```shell
 ./build.sh
 ```
 
@@ -53,7 +53,7 @@ Don't worry, you can't commit your `.env` file.
 
 ### Run the service
 
-```
+```shell
 source .venv/bin/activate
 flask --app app run --debug --port=8000
 ```
