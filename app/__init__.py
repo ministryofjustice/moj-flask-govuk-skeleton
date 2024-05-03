@@ -107,24 +107,16 @@ def create_app(config_class=Config):
                       session_cookie_secure=True,
                       session_cookie_http_only=True,
                       session_cookie_samesite="Strict",)
-    
     WTFormsHelpers(app)
 
     # Create static asset bundles
-    # css = Bundle("src/css/*.css", filters="cssmin", output="dist/css/custom-%(version)s.min.css")
-    # js = Bundle("src/js/*.js", filters="jsmin", output="dist/js/custom-%(version)s.min.js")
-    # if "css" not in assets:
-    #     assets.register("css", css)
-    # if "js" not in assets:
-    #     assets.register("js", js)
+    css = Bundle("../moj-flask-govuk-skeleton/node_modules/govuk-frontend/dist/govuk/*.css", filters="cssmin", output="dist/css/custom-%(version)s.min.css")
+    js = Bundle("../moj-flask-govuk-skeleton/node_modules/govuk-frontend/dist/govuk/*.js", filters='jsmin', output="dist/js/custom-%(version)s.min.js")
 
-    # css = Bundle("src/css/*.css", filters="cssmin", output="dist/css/custom-%(version)s.min.css")
-    js = Bundle("../node_modules/govuk-frontend/dist/govuk/*.js", filters='jsmin', output="dist/js/custom-%(version)s.min.js")
-
-    # if "css" not in assets:
-    #     assets.register("css", css)
-
-    assets.register("js", js)
+    if "css" not in assets:
+        assets.register("css", css)
+    if "js" not in assets:
+        assets.register("js", js)
 
     # Register blueprints
     from app.demos import bp as demo_bp
