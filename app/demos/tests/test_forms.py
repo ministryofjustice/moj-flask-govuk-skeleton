@@ -7,6 +7,9 @@ import re
 # The live_server fixture will start a test application using the client defined in app/conftest.py
 # This ensures the tests run inside an application context and url_for will return URLs for the test client.
 @pytest.mark.usefixtures("live_server")
+# Tests marked with 'playwright' can be exclusively executed by running `pytest -m playwright``
+# or omitted using `pytest -m "not playwright"` 
+@pytest.mark.playwright
 class TestForms:
     def test_has_title(self, page: Page):
         forms_url = url_for("demos.forms", _external=True)  # PlayWright expects an external URL
