@@ -96,7 +96,7 @@ There are some helpful demos included by default that show all of the components
 
 ## Testing
 
-To run the tests:
+To run all tests:
 
 ```shell
 python -m pytest --cov=app --cov-report=term-missing --cov-branch
@@ -104,10 +104,16 @@ python -m pytest --cov=app --cov-report=term-missing --cov-branch
 
 ## Playwright Testing
 
-To run tests:
+To run only playwright tests:
 
 ```shell
-pytest
+pytest -m playwright
+```
+
+To run only non-playwright tests:
+
+```shell
+pytest -m "not playwright"
 ```
 
 Run tests in headed mode:
@@ -126,6 +132,12 @@ Run tests in multiple browsers:
 
 ```shell
 pytest --browser chromium --browser webkit
+```
+
+Run tests in slow motion (Useful for debugging):
+
+```shell
+pytest --headed --slowmo 1000
 ```
 
 If you are running into issues where it states a browser needs to be installed run:
