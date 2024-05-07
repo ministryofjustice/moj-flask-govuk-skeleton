@@ -11,17 +11,20 @@ import re
 # or omitted using `pytest -m "not playwright"` 
 @pytest.mark.playwright
 class TestForms:
-    def test_has_title(self, page: Page):
+    @pytest.fixture(scope="function", autouse=True)
+    def before_each(self, page: Page):
+
+        # Go to the starting url before each test.
         forms_url = url_for("demos.forms", _external=True)  # PlayWright expects an external URL
         page.goto(forms_url)
-        print(forms_url)
+        yield
+        page.context.clear_cookies()
 
+    def test_has_title(self, page: Page):
         # Expect a title "to contain" a substring.
         expect(page).to_have_title(re.compile(current_app.config["SERVICE_NAME"]))
 
     def test_autofill_form(self, page: Page):
-        forms_url = url_for("demos.forms", _external=True)
-        page.goto(forms_url)
 
         page.get_by_role("link", name="Autocomplete").click()
 
@@ -32,8 +35,6 @@ class TestForms:
         expect(page.get_by_text("Demo form successfully"))
 
     def test_bank_statement_form(self, page: Page):
-        forms_url = url_for("demos.forms", _external=True)
-        page.goto(forms_url)
 
         page.get_by_role("link", name="Bank details").click()
 
@@ -46,8 +47,6 @@ class TestForms:
         expect(page.get_by_text("Demo form successfully"))
 
     def test_bank_statement_form_no_input(self, page: Page):
-        forms_url = url_for("demos.forms", _external=True)
-        page.goto(forms_url)
 
         page.get_by_role("link", name="Bank details").click()
         page.get_by_role("button", name="Continue").click()
