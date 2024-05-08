@@ -34,13 +34,6 @@ Note on dependencies:
 * requirements_dev.in are the dependencies needed only during development - linters, code formatting etc
 * (requirements*.txt - in a production system we'd generate a .txt from each .in file. The .txt file includes all direct dependencies in the .in, plus their dependencies too (indirect dependencies). And all dependencies have their exact version specified ('pinned'). This ensures production environment installs exactly the same as the test environment and what developers install.)
 
-### Assets
-
-Ensure you have the required CSS and JS files in place:
-
-```
-./build.sh
-```
 
 ### Configuration environment variables
 
