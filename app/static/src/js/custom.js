@@ -1,4 +1,4 @@
 // Your custom JS goes here...
-import { initAll } from "./govuk-frontend";
+import { initAll } from "./node_modules/govuk-frontend";
 
 initAll();

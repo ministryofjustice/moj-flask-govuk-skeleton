@@ -161,10 +161,10 @@
 
 {% block bodyEnd %}
     {% assets "js" %}
-    <!-- <script nonce="{{ csp_nonce() }}" type="text/javascript" src="{{ ASSET_URL }}"></script> -->
-    <script nonce="{{ csp_nonce() }}" type="module">
-        import { initAll } from "{{ ASSET_URL }}"
-        initAll()
-    </script>
+    <script nonce="{{ csp_nonce() }}" type="module" src="{{ ASSET_URL }}"></script>
+    <!-- <script nonce="{{ csp_nonce() }}" type="module">
+      import { initAll } from "{{ ASSET_URL }}"
+      initAll()
+    </script> -->
     {% endassets %}
 {% endblock %}
