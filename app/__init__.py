@@ -110,8 +110,8 @@ def create_app(config_class=Config):
     WTFormsHelpers(app)
 
     # Create static asset bundles
-    js = Bundle("../moj-flask-govuk-skeleton/node_modules/govuk-frontend/dist/govuk/*.js", filters='jsmin', output="dist/js/custom-%(version)s.min.js")
-    css = Bundle("govuk-frontend.min.css", filters="cssmin", output="dist/css/custom-%(version)s.min.css")
+    css = Bundle("src/css/*.css", filters="cssmin", output="dist/css/custom-%(version)s.min.css")
+    js = Bundle("src/js/*.js", filters="jsmin", output="dist/js/custom-%(version)s.min.js")
 
     if "css" not in assets:
         assets.register("css", css)

@@ -1,7 +1,7 @@
 {
-  "name": "moj-flask-govuk-skeleton",
+  "name": "static",
   "version": "1.0.0",
-  "description": "This is a clone from the HM Land Registery Flask skeleton [GOV.UK Frontend Flask](https://github.com/LandRegistry/govuk-frontend-flask). Thank you, Land Registry.",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
