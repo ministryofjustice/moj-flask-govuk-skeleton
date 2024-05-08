@@ -160,10 +160,11 @@
 {% endblock %}
 
 {% block bodyEnd %}
-    <script nonce="{{ csp_nonce() }}" type="module" src="{{ url_for('static', filename='govuk-frontend.min.js') }}"></script>
+    {% assets "js" %}
+    <!-- <script nonce="{{ csp_nonce() }}" type="text/javascript" src="{{ ASSET_URL }}"></script> -->
     <script nonce="{{ csp_nonce() }}" type="module">
-        import { initAll } from "{{ url_for('static', filename='govuk-frontend.min.js') }}"
+        import { initAll } from "{{ ASSET_URL }}"
         initAll()
     </script>
-    {% assets "js" %}<script nonce="{{ csp_nonce() }}" type="text/javascript" src="{{ ASSET_URL }}"></script>{% endassets %}
+    {% endassets %}
 {% endblock %}
