@@ -21,10 +21,10 @@ rm -rf govuk_frontend.zip
 rm -rf govuk_components
 
 # Get new release source code and move to a directory
-curl -L https://github.com/alphagov/govuk-frontend/archive/refs/tags/v5.1.0.zip > govuk_frontend_source.zip
+curl -L https://github.com/alphagov/govuk-frontend/archive/refs/tags/v5.3.0.zip > govuk_frontend_source.zip
 unzip -o govuk_frontend_source.zip -d govuk_frontend_source
 mkdir govuk_components
-mv govuk_frontend_source/govuk-frontend-5.1.0/packages/govuk-frontend/src/govuk/components/** govuk_components
+mv govuk_frontend_source/govuk-frontend-5.3.0/packages/govuk-frontend/src/govuk/components/** govuk_components
 
 # Remove all files apart from test fixtures
 find govuk_components -type f ! -name '*.yaml' -delete
