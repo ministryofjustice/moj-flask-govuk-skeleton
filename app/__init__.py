@@ -113,7 +113,6 @@ def create_app(config_class=Config):
     css = Bundle("src/css/*.css", filters="libsass", output="dist/css/custom-%(version)s.min.css")
     js = Bundle("src/js/*.js", filters="jsmin", output="dist/js/custom-%(version)s.min.js")
 
-
     if "css" not in assets:
         assets.register("css", css)
     if "js" not in assets:

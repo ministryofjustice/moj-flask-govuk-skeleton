@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "pytest",
+    "copy-js": "cp -R node_modules/govuk-frontend/dist/govuk/govuk-frontend.min.js app/static/src/js",
+    "build": "npm run copy-js",
+    "dev": "flask run --debug"
   },
   "keywords": [],
   "author": "",
