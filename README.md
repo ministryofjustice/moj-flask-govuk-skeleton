@@ -21,7 +21,7 @@ The app is provided intentionally bare, with just the essential parts that all s
 
 Create a virtual environment and install the python dependencies:
 
-```
+```shell
 cd refer-frontend
 python3 -m venv .venv
 source .venv/bin/activate
@@ -33,6 +33,15 @@ Note on dependencies:
 * requirements.in are the direct dependencies of the app.
 * requirements_dev.in are the dependencies needed only during development - linters, code formatting etc
 * (requirements*.txt - in a production system we'd generate a .txt from each .in file. The .txt file includes all direct dependencies in the .in, plus their dependencies too (indirect dependencies). And all dependencies have their exact version specified ('pinned'). This ensures production environment installs exactly the same as the test environment and what developers install.)
+
+### Install GOV.UK Frontend
+```shell
+npm install
+npm run build
+```
+GOV.UK Frontend CSS is imported via `app/static/src/css/custom.css`
+
+The pre-complied GOV.UK Frontend JS will be copied to `app/static/src/js/govuk-frontend.min.js`
 
 
 ### Configuration environment variables
