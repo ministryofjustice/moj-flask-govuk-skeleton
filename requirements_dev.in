@@ -1,3 +1,6 @@
 black
 flake8-bugbear
 isort
+pytest-flask
+pytest-playwright
+playwright

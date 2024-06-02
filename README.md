@@ -22,7 +22,6 @@ The app is provided intentionally bare, with just the essential parts that all s
 Create a virtual environment and install the python dependencies:
 
 ```shell
-cd refer-frontend
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.in -r requirements_dev.in
@@ -56,7 +55,7 @@ Don't worry, you can't commit your `.env` file.
 
 ### Run the service
 
-```
+```shell
 source .venv/bin/activate
 flask --app app run --debug --port=8000
 ```
@@ -104,6 +103,40 @@ To run the tests:
 ```shell
 python -m pytest --cov=app --cov-report=term-missing --cov-branch
 ```
+
+## Playwright Testing
+
+To run tests:
+
+```shell
+pytest
+```
+
+Run tests in headed mode:
+
+```shell
+pytest --headed
+```
+
+Run tests in a different browser (chromium, firefox, webkit):
+
+```shell
+pytest --browser firefox
+```
+
+Run tests in multiple browsers:
+
+```shell
+pytest --browser chromium --browser webkit
+```
+
+If you are running into issues where it states a browser needs to be installed run:
+
+```shell
+playwright install
+```
+
+For further guidance on writing tests https://playwright.dev/python/docs/writing-tests
 
 ## Code formatting and linting
 
