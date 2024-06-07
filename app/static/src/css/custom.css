@@ -1,1 +1,4 @@
 /* Your custom CSS goes here... */
+
+/* Here you can use GOVUK scss variables */
+@import 'node_modules/govuk-frontend/dist/govuk/settings/_all.scss';
