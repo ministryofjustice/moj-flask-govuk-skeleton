@@ -31,15 +31,20 @@ Note on dependencies:
 
 * requirements.in are the direct dependencies of the app.
 * requirements_dev.in are the dependencies needed only during development - linters, code formatting etc
-* (requirements*.txt - in a production system we'd generate a .txt from each .in file. The .txt file includes all direct dependencies in the .in, plus their dependencies too (indirect dependencies). And all dependencies have their exact version specified ('pinned'). This ensures production environment installs exactly the same as the test environment and what developers install.)
+* (requirements*.txt - in a production system we'd generate a .txt from each .in file. The .txt file includes all direct
+dependencies in the .in, plus their dependencies too (indirect dependencies). And all dependencies have their exact 
+version specified ('pinned'). This ensures production environment installs exactly the same as the test environment and
+what developers install.)
 
-### Assets
+### Demo assets
 
-Ensure you have the required CSS and JS files in place:
+For the demo of the MOJ Flask Skeleton, you'll need the `govuk_components` yaml files.
 
 ```shell
 ./build.sh
 ```
+
+You will not need this in your development project. This is only for the MOJ Flask Skeleton Demo.
 
 ### Configuration environment variables
 
@@ -160,6 +165,16 @@ Please refer to the specific packages documentation for more details.
 Custom CSS and JavaScript files are merged and compressed using [Flask Assets](https://flask-assets.readthedocs.io/en/latest/) and [Webassets](https://webassets.readthedocs.io/en/latest/). This takes all `*.css` files in `app/static/src/css` and all `*.js` files in `app/static/src/js` and outputs a single compressed file to both `app/static/dist/css` and `app/static/dist/js` respectively.
 
 CSS is [minified](https://en.wikipedia.org/wiki/Minification_(programming)) using [CSSMin](https://github.com/zacharyvoase/cssmin) and JavaScript is minified using [JSMin](https://github.com/tikitu/jsmin/). This removes all whitespace characters, comments and line breaks to reduce the size of the source code, making its transmission over a network more efficient.
+
+Flask-Assets provides a built-in cache system to improve performance by caching compiled assets. However, this can
+sometimes lead to issues where changes to your source files are not immediately reflected in the compiled output.
+
+Flask-Assets uses `ASSETS_MANIFEST` which enables the cache manifest feature. Flask-Assets will generate a cache manifest 
+file containing the paths to the compiled asset files. These are used to help with the hashing on generated asset files.
+
+Note: When you start developing with Flask, you'll see a directory appear `app/static/webasset-cache`. webassets-cache
+stores the asset manifest. If for some reason Flask-Assets is not picking up your changes to files, clear the folder of
+its caches. 
 
 ### Cache busting
 
