@@ -36,6 +36,20 @@ dependencies in the .in, plus their dependencies too (indirect dependencies). An
 version specified ('pinned'). This ensures production environment installs exactly the same as the test environment and
 what developers install.)
 
+### Assets setup
+
+For this you'll need to install node. 
+
+`npm install`
+
+Once installed you now have access to GOVUK components, stylesheets and JS via the `node_module`
+
+To copy some of the assets you'll need into your project, run the following:
+
+`npm run build`
+
+Ensure you do this before starting your Flask project as you're JS and SCSS imports will fail in the flask run.
+
 ### Demo assets
 
 For the demo of the MOJ Flask Skeleton, you'll need the `govuk_components` yaml files.
