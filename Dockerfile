@@ -9,34 +9,38 @@ ENV PYTHONUNBUFFERED=1
 # Set the working directory in the container
 WORKDIR /usr/src/app
 
-# Create a non-root user
-RUN adduser --disabled-password --gecos '' containeruser
-# Change ownership of the working directory to the non-root user
-RUN chown -R containeruser:containeruser /usr/src/app
+# Install system dependencies
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        gcc \
+        libffi-dev \
+        libssl-dev \
+    && rm -rf /var/lib/apt/lists/*
 
-# Copy the dependencies file to the working directory
-COPY govuk-frontend-flask.py config.py requirements.in build.sh ./
+# Install Node.js and npm
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        nodejs \
+        npm \
+    && rm -rf /var/lib/apt/lists/*
 
-# Install any needed dependencies
-RUN pip install --no-cache-dir -r requirements.in
+# Copy the Python dependencies file to the working directory
+COPY requirements_dev.txt .
 
-# Make the shell script executable
-RUN chmod +x build.sh
-
-# Run build shell to create assets for project
-RUN ./build.sh
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements_dev.txt
 
 # Copy the project code into the working directory
 COPY . .
 
-# Give user permission to the following:
-RUN chown -R containeruser:containeruser /usr/src/app/app/static/.webassets-cache/
+# Install Node.js dependencies
+#RUN npm install
 
-# Switch to the non-root user
-USER containeruser
+# Build static assets
+#RUN npm run build
 
 # Expose the Flask port
 EXPOSE 8000
 
-# Run the Flask application for development
-CMD ["flask", "run", "--cert=adhoc"]
+# Run the Flask application
+CMD ["flask", "run"]
