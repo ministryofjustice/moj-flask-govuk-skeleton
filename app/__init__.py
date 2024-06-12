@@ -10,7 +10,6 @@ from jinja2 import ChoiceLoader, PackageLoader, PrefixLoader
 
 from config import Config
 
-assets = Environment()
 compress = Compress()
 csrf = CSRFProtect()
 limiter = Limiter(get_remote_address, default_limits=["2 per second", "60 per minute"])
@@ -19,6 +18,7 @@ talisman = Talisman()
 
 def create_app(config_class=Config):
     app = Flask(__name__, static_url_path="/assets")
+    assets = Environment(app)
     app.config.from_object(config_class)
     app.jinja_env.lstrip_blocks = True
     app.jinja_env.trim_blocks = True
@@ -114,9 +114,17 @@ def create_app(config_class=Config):
     
     WTFormsHelpers(app)
 
+    app.config['ASSETS_AUTO_BUILD'] = True  # Enable automatic rebuilding of assets
+    app.config['ASSETS_MANIFEST'] = 'cache'  # Enable cache manifest
+
     # Create static asset bundles
-    css = Bundle("src/css/*.css", filters="cssmin", output="dist/css/custom-%(version)s.min.css")
-    js = Bundle("src/js/*.js", filters="jsmin", output="dist/js/custom-%(version)s.min.js")
+    css = Bundle(
+        "src/scss/govuk-frontend.scss",
+        filters="libsass, cssmin",  # Use SCSS filter to convert SCSS to CSS, then CSS minification
+        output="dist/css/application-%(version)s.min.css"
+    )
+    # Concat all JS files into one.
+    js = Bundle("src/js/*.js", "*.js", filters="jsmin", output="dist/js/application-%(version)s.min.js")
     if "css" not in assets:
         assets.register("css", css)
     if "js" not in assets:

@@ -14,20 +14,24 @@ RUN adduser --disabled-password --gecos '' containeruser
 # Change ownership of the working directory to the non-root user
 RUN chown -R containeruser:containeruser /usr/src/app
 
+# Install node
+RUN apt-get update \
+  && apt-get -y install nodejs npm \
+  && apt-get clean
+
 # Copy the dependencies file to the working directory
-COPY govuk-frontend-flask.py config.py requirements.in build.sh ./
+COPY govuk-frontend-flask.py config.py requirements.in package*.json ./
+
+RUN npm install
 
 # Install any needed dependencies
 RUN pip install --no-cache-dir -r requirements.in
 
-# Make the shell script executable
-RUN chmod +x build.sh
-
-# Run build shell to create assets for project
-RUN ./build.sh
-
 # Copy the project code into the working directory
 COPY . .
+
+# Run node script to copy GOVUK files needed for developement and production
+RUN npm run build
 
 # Give user permission to the following:
 RUN chown -R containeruser:containeruser /usr/src/app/app/static/.webassets-cache/
