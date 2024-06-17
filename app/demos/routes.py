@@ -1,11 +1,13 @@
 import os
 
 import yaml
-from flask import flash, redirect, render_template, url_for
+from flask import Blueprint, flash, redirect, render_template, url_for
 from werkzeug.exceptions import NotFound
 
-from app.demos import bp
 from app.demos.forms import AutocompleteForm, BankDetailsForm, ConditionalRevealForm, CreateAccountForm, KitchenSinkForm
+
+
+bp = Blueprint("demos", __name__, template_folder="../templates/demos")
 
 
 @bp.route("/components", methods=["GET"])

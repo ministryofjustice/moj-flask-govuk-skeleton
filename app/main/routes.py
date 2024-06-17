@@ -1,9 +1,11 @@
-from flask import flash, json, make_response, redirect, render_template, request
+from flask import Blueprint, flash, json, make_response, redirect, render_template, request
 from flask_wtf.csrf import CSRFError
 from werkzeug.exceptions import HTTPException
 
-from app.main import bp
 from app.main.forms import CookiesForm
+
+
+bp = Blueprint("main", __name__, template_folder="../templates/main")
 
 
 @bp.route("/", methods=["GET"])
