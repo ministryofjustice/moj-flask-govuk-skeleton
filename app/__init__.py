@@ -12,7 +12,10 @@ from config import Config
 
 compress = Compress()
 csrf = CSRFProtect()
-limiter = Limiter(get_remote_address, default_limits=["2 per second", "60 per minute"])
+limiter = Limiter(
+    get_remote_address,
+    default_limits=["2 per second", "60 per minute"],
+)
 talisman = Talisman()
 
 
@@ -103,15 +106,15 @@ def create_app(config_class=Config):
     compress.init_app(app)
     csrf.init_app(app)
     limiter.init_app(app)
-    talisman.init_app(app, 
-                      content_security_policy=csp, 
-                      permissions_policy=permissions_policy, 
-                      content_security_policy_nonce_in=["script-src"], 
+    talisman.init_app(app,
+                      content_security_policy=csp,
+                      permissions_policy=permissions_policy,
+                      content_security_policy_nonce_in=["script-src"],
                       force_https=True,
                       session_cookie_secure=True,
                       session_cookie_http_only=True,
                       session_cookie_samesite="Strict",)
-    
+
     WTFormsHelpers(app)
 
     app.config['ASSETS_AUTO_BUILD'] = True  # Enable automatic rebuilding of assets
