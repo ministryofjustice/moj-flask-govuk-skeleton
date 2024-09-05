@@ -3,13 +3,10 @@ email_validator
 Flask
 Flask-Assets
 Flask-Compress
+Flask-Limiter
 Flask-Talisman
-Flask-Limiter[redis]
 govuk-frontend-jinja
 govuk-frontend-wtf
-gunicorn
-jsmin
-pyyaml
 click
 python-dotenv
 requests
