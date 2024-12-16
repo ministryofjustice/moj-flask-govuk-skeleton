@@ -5,7 +5,13 @@ from flask import flash, redirect, render_template, url_for
 from werkzeug.exceptions import NotFound
 
 from app.demos import bp
-from app.demos.forms import AutocompleteForm, BankDetailsForm, ConditionalRevealForm, CreateAccountForm, KitchenSinkForm
+from app.demos.forms import (
+    AutocompleteForm,
+    BankDetailsForm,
+    ConditionalRevealForm,
+    CreateAccountForm,
+    KitchenSinkForm,
+)
 
 
 @bp.route("/components", methods=["GET"])
@@ -19,7 +25,9 @@ def components():
 @bp.route("/components/<string:component>", methods=["GET"])
 def component(component):
     try:
-        with open(f"app/demos/govuk_components/{component}/{component}.yaml") as yaml_file:
+        with open(
+            f"app/demos/govuk_components/{component}/{component}.yaml"
+        ) as yaml_file:
             fixtures = yaml.safe_load(yaml_file)
     except FileNotFoundError:
         raise NotFound

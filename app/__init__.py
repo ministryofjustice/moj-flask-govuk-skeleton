@@ -1,5 +1,4 @@
 from flask import Flask
-from flask_assets import Bundle, Environment
 from flask_compress import Compress
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
@@ -7,6 +6,7 @@ from flask_talisman import Talisman
 from flask_wtf.csrf import CSRFProtect
 from govuk_frontend_wtf.main import WTFormsHelpers
 from jinja2 import ChoiceLoader, PackageLoader, PrefixLoader
+from app.helpers.static_helpers import get_hashed_filename
 
 from config import Config
 
@@ -20,8 +20,8 @@ talisman = Talisman()
 
 
 def create_app(config_class=Config):
-    app = Flask(__name__, static_url_path="/assets")
-    assets = Environment(app)
+    app = Flask(__name__, static_url_path="/assets", static_folder="static/dist")
+    app.url_map.strict_slashes = False  # This allows www.host.gov.uk/category to be routed to www.host.gov.uk/category/
     app.config.from_object(config_class)
     app.jinja_env.lstrip_blocks = True
     app.jinja_env.trim_blocks = True
@@ -49,10 +49,7 @@ def create_app(config_class=Config):
             "'self'",
             "*.google-analytics.com",
         ],
-        "img-src": [
-            "'self'",
-            "*.googletagmanager.com"
-        ],
+        "img-src": ["'self'", "*.googletagmanager.com", "www.gov.uk"],
     }
 
     # Set permissions policy
@@ -102,36 +99,21 @@ def create_app(config_class=Config):
     }
 
     # Initialise app extensions
-    assets.init_app(app)
     compress.init_app(app)
     csrf.init_app(app)
     limiter.init_app(app)
-    talisman.init_app(app,
-                      content_security_policy=csp,
-                      permissions_policy=permissions_policy,
-                      content_security_policy_nonce_in=["script-src"],
-                      force_https=True,
-                      session_cookie_secure=True,
-                      session_cookie_http_only=True,
-                      session_cookie_samesite="Strict",)
+    talisman.init_app(
+        app,
+        content_security_policy=csp,
+        permissions_policy=permissions_policy,
+        content_security_policy_nonce_in=["script-src"],
+        force_https=True,
+        session_cookie_secure=True,
+        session_cookie_http_only=True,
+        session_cookie_samesite="Strict",
+    )
 
     WTFormsHelpers(app)
-
-    app.config['ASSETS_AUTO_BUILD'] = True  # Enable automatic rebuilding of assets
-    app.config['ASSETS_MANIFEST'] = 'cache'  # Enable cache manifest
-
-    # Create static asset bundles
-    css = Bundle(
-        "src/scss/govuk-frontend.scss",
-        filters="libsass, cssmin",  # Use SCSS filter to convert SCSS to CSS, then CSS minification
-        output="dist/css/application-%(version)s.min.css"
-    )
-    # Concat all JS files into one.
-    js = Bundle("src/js/*.js", "*.js", filters="jsmin", output="dist/js/application-%(version)s.min.js")
-    if "css" not in assets:
-        assets.register("css", css)
-    if "js" not in assets:
-        assets.register("js", js)
 
     # Register blueprints
     from app.demos import bp as demo_bp
@@ -139,5 +121,16 @@ def create_app(config_class=Config):
 
     app.register_blueprint(demo_bp)
     app.register_blueprint(main_bp)
+
+    @app.context_processor
+    def inject_hashed_filename():
+        """
+        Adds the 'get_hashed_filename' function to the Jinja2 context.
+
+        This allows the 'get_hashed_filename' utility function to be used directly
+        in Jinja2 templates to dynamically retrieve the correct hashed filename
+        for static assets (e.g., CSS and JS files) based on the manifest file.
+        """
+        return {"get_hashed_filename": get_hashed_filename}
 
     return app
