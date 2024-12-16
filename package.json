@@ -4,6 +4,9 @@
     "gov-images": "cp -R node_modules/govuk-frontend/dist/govuk/assets/ app/static",
     "build": "npm run gov-js && npm run gov-images"
   },
+  "engines": {
+    "node": "22.12.0"
+  },
   "dependencies": {
     "govuk-frontend": "^5.7.1"
   }
