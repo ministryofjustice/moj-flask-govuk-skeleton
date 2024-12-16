@@ -13,6 +13,12 @@ This is a template [Flask](https://flask.palletsprojects.com) app using the [GOV
 
 The app is provided intentionally bare, with just the essential parts that all services need, such as error pages, accessibility statement, cookie banner, cookie page and privacy notice. It uses a number of other packages to provide the [features](#features) described below with sensible and best-practice defaults. Please read the [next steps](#next-steps) section for guidance on how to start building out your app on top of this template.
 
+# Versioning 
+- Python: 3.12
+- Node.js: 22.12.0
+- npm: 10.9.0
+- pip: 24.3.1
+
 # Getting started
 
 ## Local install for development:
@@ -38,15 +44,31 @@ what developers install.)
 
 ### Assets setup
 
-For this you'll need to install node. 
+This project uses **Node.js** to manage assets and handle other Node.js-related tasks.
 
-`npm install`
+To get started, ensure you have [NVM](https://github.com/nvm-sh/nvm) installed on your machine.
+
+This project includes an `.nvmrc` file, making it easy to set up the correct Node.js version. 
+
+Follow these commands to configure your environment:
+
+```shell
+nvm install
+nvm use
+node -v
+```
+Now that Node is installed
+```shell
+npm install
+````
 
 Once installed you now have access to GOVUK components, stylesheets and JS via the `node_module`
 
 To copy some of the assets you'll need into your project, run the following:
 
-`npm run build`
+```shell
+npm run build
+````
 
 Ensure you do this before starting your Flask project as you're JS and SCSS imports will fail in the flask run.
 
