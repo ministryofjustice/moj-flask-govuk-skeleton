@@ -1,5 +1,5 @@
 (function () {
-  // Dont display if cookies policy already set
+  // Don't display if cookies policy already set
   if (
     !document.cookie
       .split(";")

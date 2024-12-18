@@ -21,7 +21,7 @@
     <meta name="description" content="{{config['SERVICE_NAME']}}">
     <meta name="keywords" content="GOV.UK, govuk, gov, government, uk, frontend, ui, user interface, jinja, python, flask, port, template, templating, macro, component, design system, html, forms, wtf, wtforms, widget, widgets, demo, example">
     <meta name="author" content="{{config['DEPARTMENT_NAME']}}">
-    {% assets "css" %}<link type="text/css" href="{{ ASSET_URL }}" rel="stylesheet">{% endassets %}
+    <link rel="stylesheet" href="{{ url_for('static', filename=get_hashed_filename('styles.scss')) }}">
 {% endblock %}
 
 {% block bodyStart %}
@@ -168,10 +168,5 @@
 {% endblock %}
 
 {% block bodyEnd %}
-    {% assets "js" %}
-        <script nonce="{{ csp_nonce() }}" type="module">
-            import { initAll } from "{{ ASSET_URL }}";
-            initAll();
-        </script>
-    {% endassets %}
+    <script type="module" src="{{ url_for('static', filename=get_hashed_filename('app-bundle.js')) }}" nonce="{{ csp_nonce() }}" ></script>
 {% endblock %}

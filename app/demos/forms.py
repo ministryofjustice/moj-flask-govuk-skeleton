@@ -29,7 +29,15 @@ from wtforms.fields import (
     SubmitField,
     TextAreaField,
 )
-from wtforms.validators import Email, EqualTo, InputRequired, Length, Optional, Regexp, ValidationError
+from wtforms.validators import (
+    Email,
+    EqualTo,
+    InputRequired,
+    Length,
+    Optional,
+    Regexp,
+    ValidationError,
+)
 
 from app.demos.custom_validators import RequiredIf
 
@@ -132,7 +140,9 @@ class CreateAccountForm(FlaskForm):
                 max=256,
                 message="Email address must be 256 characters or fewer",
             ),
-            Email(message="Enter an email address in the correct format, like name@example.com"),
+            Email(
+                message="Enter an email address in the correct format, like name@example.com"
+            ),
         ],
         description="You'll need this email address to sign in to your account",
     )
@@ -170,7 +180,11 @@ class CreateAccountForm(FlaskForm):
     terms_and_conditions = BooleanField(
         "I agree to the terms and conditions",
         widget=GovCheckboxInput(),
-        validators=[InputRequired(message="Select to confirm you agree with the terms and conditions")],
+        validators=[
+            InputRequired(
+                message="Select to confirm you agree with the terms and conditions"
+            )
+        ],
     )
     submit = SubmitField("Create account", widget=GovSubmitInput())
 
@@ -327,7 +341,9 @@ class ConditionalRevealForm(FlaskForm):
     contact = RadioField(
         "How would you prefer to be contacted?",
         widget=GovRadioInput(),
-        validators=[InputRequired(message="Select how you would prefer to be contacted")],
+        validators=[
+            InputRequired(message="Select how you would prefer to be contacted")
+        ],
         choices=[
             ("email", "Email"),
             ("phone", "Phone"),

@@ -1,13 +1,20 @@
 {
+  "type": "module",
   "scripts": {
-    "gov-js": "cp -R node_modules/govuk-frontend/dist/govuk/govuk-frontend.min.* app/static",
-    "gov-images": "cp -R node_modules/govuk-frontend/dist/govuk/assets/ app/static",
-    "build": "npm run gov-js && npm run gov-images"
+    "gov-images": "cp -R node_modules/govuk-frontend/dist/govuk/assets/. app/static/dist",
+    "build": "npm run gov-images && node esbuild.config.js",
+    "watch": "npm run gov-images && node esbuild.config.js --watch"
   },
   "engines": {
-    "node": "22.12.0"
+    "node": "^22.12.0",
+    "npm": "^10.1.0"
   },
   "dependencies": {
     "govuk-frontend": "^5.7.1"
+  },
+  "devDependencies": {
+    "esbuild": "0.24.0",
+    "esbuild-sass-plugin": "^3.3.1",
+    "fs": "^0.0.1-security"
   }
 }
