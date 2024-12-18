@@ -105,7 +105,11 @@ Now you can browse: http://127.0.0.1:8000
 
 ## Running in Docker
 
-For local development and deployments.
+For local development and deployments, run the below code:
+
+```shell
+./run_local.sh
+```
 
 ### Set local Docker environment variables
 

@@ -8,7 +8,7 @@ from govuk_frontend_wtf.main import WTFormsHelpers
 from jinja2 import ChoiceLoader, PackageLoader, PrefixLoader
 from app.helpers.static_helpers import get_hashed_filename
 
-from config import Config
+from app.config import Config
 
 compress = Compress()
 csrf = CSRFProtect()
@@ -20,7 +20,7 @@ talisman = Talisman()
 
 
 def create_app(config_class=Config):
-    app = Flask(__name__, static_url_path="/assets", static_folder="static/dist")
+    app: Flask = Flask(__name__, static_url_path="/assets", static_folder="static/dist")
     app.url_map.strict_slashes = False  # This allows www.host.gov.uk/category to be routed to www.host.gov.uk/category/
     app.config.from_object(config_class)
     app.jinja_env.lstrip_blocks = True

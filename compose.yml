@@ -10,7 +10,12 @@ services:
 
   web:
     container_name: govuk-frontend-flask
-    build: .
+    build:
+      context: .
+      args:
+        BASE_IMAGE: python:3.13-bookworm
+        REQUIREMENTS_FILE: "requirements_dev.txt"
+      target: development
     restart: always
     environment:
       - CONTACT_EMAIL=[contact email]
@@ -24,4 +29,4 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - .:/home/containeruser
+      - ./app:/home/app/flask/app
