@@ -1,46 +1,54 @@
-FROM python:3.12-slim
+ARG BASE_IMAGE=python:3.13-slim
 
-# Set environment variables
-ENV FLASK_APP=govuk-frontend-flask.py
-ENV FLASK_RUN_HOST=0.0.0.0
-ENV FLASK_RUN_PORT=8000
-ENV PYTHONUNBUFFERED=1
-
-# Set the working directory in the container
-WORKDIR /usr/src/app
-
-# Create a non-root user
-RUN adduser --disabled-password --gecos '' containeruser
-# Change ownership of the working directory to the non-root user
-RUN chown -R containeruser:containeruser /usr/src/app
-
-# Install node
-RUN apt-get update \
-  && apt-get -y install nodejs npm \
-  && apt-get clean
-
-# Copy the dependencies file to the working directory
-COPY govuk-frontend-flask.py config.py requirements.in package*.json ./
-
+FROM node:lts-iron as node_build
+WORKDIR /home/node
+COPY esbuild.config.js package.json package-lock.json ./
+COPY app/static/src app/static/src
 RUN npm install
-
-# Install any needed dependencies
-RUN pip install --no-cache-dir -r requirements.in
-
-# Copy the project code into the working directory
-COPY . .
-
-# Run node script to copy GOVUK files needed for developement and production
 RUN npm run build
 
-# Give user permission to the following:
-RUN chown -R containeruser:containeruser /usr/src/app/app/static/.webassets-cache/
+
+FROM $BASE_IMAGE AS base
+# Change this to your production requirments for production purposes.
+ARG REQUIREMENTS_FILE=requirements_dev.txt
+
+# Set environment variables
+ENV FLASK_RUN_HOST=0.0.0.0
+ENV FLASK_RUN_PORT=${FLASK_RUN_PORT:-8000}
+ENV PYTHONUNBUFFERED=1
+
+# Create a non-root user
+RUN adduser --disabled-password app -u 1000 && \
+    cp /usr/share/zoneinfo/Europe/London /etc/localtime
+
+RUN mkdir /home/app/flask
+WORKDIR /home/app/flask
+
+COPY --from=node_build /home/node/app/static/dist/ app/static/dist/
+
+COPY $REQUIREMENTS_FILE requirements.txt
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
+
+COPY app ./app
+
+# Change ownership of the working directory to the non-root user
+RUN chown -R app:app /home/app
+
+# Cleanup container
+RUN rm -rf /var/lib/apt/lists/*
 
 # Switch to the non-root user
-USER containeruser
+USER app
 
 # Expose the Flask port
-EXPOSE 8000
+EXPOSE $FLASK_RUN_PORT
+
+# Run the Flask application for production
+FROM base AS production
+# TODO: Use a production ready WSGI
+CMD ["flask", "run"]
 
 # Run the Flask application for development
-CMD ["flask", "run", "--cert=adhoc"]
+FROM base AS development
+CMD ["flask", "run", "--debug"]
