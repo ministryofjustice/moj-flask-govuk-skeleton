@@ -4,6 +4,8 @@ Flask
 Flask-Compress
 Flask-Limiter
 Flask-Talisman
+Flask-Pydantic
+pydantic
 govuk-frontend-jinja
 govuk-frontend-wtf
 click
