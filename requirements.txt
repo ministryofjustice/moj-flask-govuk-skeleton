@@ -25,7 +25,7 @@ govuk-frontend-jinja==3.4.0
 govuk-frontend-wtf==3.2.0
 idna==3.10
 itsdangerous==2.2.0
-jinja2==3.1.4
+jinja2==3.1.5
 limits==3.14.1
 markdown-it-py==3.0.0
 markupsafe==3.0.2
