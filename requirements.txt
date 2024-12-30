@@ -11,7 +11,6 @@ cffi==1.17.1
 charset-normalizer==3.4.0
 click==8.1.7
 cryptography==44.0.0
-cssmin==0.2.0
 deepmerge==2.0
 deprecated==1.2.15
 dnspython==2.7.0

@@ -6,6 +6,7 @@ from flask_talisman import Talisman
 from flask_wtf.csrf import CSRFProtect
 from govuk_frontend_wtf.main import WTFormsHelpers
 from jinja2 import ChoiceLoader, PackageLoader, PrefixLoader
+from werkzeug.middleware.proxy_fix import ProxyFix
 from app.helpers.static_helpers import get_hashed_filename
 
 from app.config import Config
@@ -36,6 +37,7 @@ def create_app(config_class=Config):
             ),
         ]
     )
+    app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1)
 
     # Set content security policy
     csp = {
@@ -52,7 +54,8 @@ def create_app(config_class=Config):
         "img-src": ["'self'", "*.googletagmanager.com", "www.gov.uk"],
     }
 
-    # Set permissions policy
+    # Set permissions policy.
+    # Remove policy's you do not need for your project.
     permissions_policy = {
         "accelerometer": "()",
         "ambient-light-sensor": "()",
