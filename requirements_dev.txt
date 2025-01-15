@@ -49,7 +49,7 @@ markupsafe==3.0.2
 mccabe==0.7.0
 mdurl==0.1.2
 msgpack==1.1.0
-mypy==1.13.0
+mypy==1.14.1
 mypy-extensions==1.0.0
 ordered-set==4.1.0
 packageurl-python==0.16.0
