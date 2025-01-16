@@ -1,9 +1,14 @@
 from flask import flash, json, make_response, redirect, render_template, request
 from flask_wtf.csrf import CSRFError
 from werkzeug.exceptions import HTTPException
-
+from flask_pydantic import validate
+from pydantic import BaseModel
 from app.main import bp
-from app.main.forms import CookiesForm
+
+# Pydantic model for cookie preferences
+class CookiesPolicy(BaseModel):
+    functional: str
+    analytics: str
 
 
 @bp.route("/", methods=["GET"])
@@ -16,42 +21,39 @@ def accessibility():
     return render_template("accessibility.html")
 
 
-@bp.route("/cookies", methods=["GET", "POST"])
-def cookies():
-    form = CookiesForm()
-    # Default cookies policy to reject all categories of cookie
-    cookies_policy = {"functional": "no", "analytics": "no"}
+@bp.route("/cookies", methods=["POST"])
+@validate()
+def cookies_post(body: CookiesPolicy):
+    # Default cookies policy if none is provided
+    cookies_policy = body.dict()
 
-    if form.validate_on_submit():
-        # Update cookies policy consent from form data
-        cookies_policy["functional"] = form.functional.data
-        cookies_policy["analytics"] = form.analytics.data
+    # Create flash message confirmation
+    flash("You’ve set your cookie preferences.", "success")
 
-        # Create flash message confirmation before rendering template
-        flash("You’ve set your cookie preferences.", "success")
+    # Create the response so we can set the cookie before returning
+    response = make_response(render_template("cookies.html", form=None))
 
-        # Create the response so we can set the cookie before returning
-        response = make_response(render_template("cookies.html", form=form))
+    # Set cookies policy for one year
+    response.set_cookie(
+        "cookies_policy",
+        json.dumps(cookies_policy),
+        max_age=31557600,
+        secure=True,
+    )
+    return response
 
-        # Set cookies policy for one year
-        response.set_cookie(
-            "cookies_policy",
-            json.dumps(cookies_policy),
-            max_age=31557600,
-            secure=True,
-        )
-        return response
-    elif request.method == "GET":
-        if request.cookies.get("cookies_policy"):
-            # Set cookie consent radios to current consent
-            cookies_policy = json.loads(request.cookies.get("cookies_policy"))
-            form.functional.data = cookies_policy["functional"]
-            form.analytics.data = cookies_policy["analytics"]
-        else:
-            # If conset not previously set, use default "no" policy
-            form.functional.data = cookies_policy["functional"]
-            form.analytics.data = cookies_policy["analytics"]
-    return render_template("cookies.html", form=form)
+
+@bp.route("/cookies", methods=["GET"])
+def cookies_get():
+    form_data = {"functional": "no", "analytics": "no"}  # Default values
+
+    # Load cookies policy if it exists
+    if request.cookies.get("cookies_policy"):
+        cookies_policy = json.loads(request.cookies.get("cookies_policy"))
+        form_data.update(cookies_policy)
+
+    # Render the page with the current consent
+    return render_template("cookies.html", form=form_data)
 
 
 @bp.route("/privacy", methods=["GET"])
