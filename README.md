@@ -4,7 +4,7 @@
 
 This is a clone from the HM Land Registery Flask skeleton [GOV.UK Frontend Flask](https://github.com/LandRegistry/govuk-frontend-flask). Thank you, Land Registry.
 
-![govuk-frontend 5.8.0](https://img.shields.io/badge/govuk--frontend%20version-5.7.1-005EA5?logo=gov.uk&style=flat)
+![govuk-frontend 5.8.0](https://img.shields.io/badge/govuk--frontend%20version-5.8.0-005EA5?logo=gov.uk&style=flat)
 
 **GOV.UK Frontend Flask is a [community tool](https://design-system.service.gov.uk/community/resources-and-tools/) of the [GOV.UK Design System](https://design-system.service.gov.uk/). The Design System team is not responsible for it and cannot support you with using it. Contact the [maintainers](#contributors) directly if you need [help](#support) or you want to request a feature.**
 
@@ -155,6 +155,18 @@ To run tests:
 
 ```shell
 pytest
+```
+
+To run unit tests:
+
+```shell
+pytest tests/unit_tests
+```
+
+To run functional/non-functional tests:
+
+```shell
+pytest tests/functional_tests
 ```
 
 Run tests in headed mode:
