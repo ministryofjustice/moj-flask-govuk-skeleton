@@ -6,7 +6,7 @@
 #
 attrs==24.3.0
 bandit==1.8.2
-black==24.10.0
+black==25.1.0
 blinker==1.9.0
 boolean-py==4.0
 brotli==1.1.0
