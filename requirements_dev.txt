@@ -30,7 +30,7 @@ flake8==7.1.1
 flake8-bugbear==24.12.12
 flask==3.1.0
 flask-compress==1.17
-flask-limiter==3.10.0
+flask-limiter==3.12
 flask-talisman==1.1.0
 flask-wtf==1.2.2
 govuk-frontend-jinja==3.4.0
