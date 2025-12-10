@@ -4,7 +4,7 @@
 
 This is a clone from the HM Land Registery Flask skeleton [GOV.UK Frontend Flask](https://github.com/LandRegistry/govuk-frontend-flask). Thank you, Land Registry.
 
-![govuk-frontend 5.8.0](https://img.shields.io/badge/govuk--frontend%20version-5.7.1-005EA5?logo=gov.uk&style=flat)
+![govuk-frontend 5.11.2](https://img.shields.io/badge/govuk--frontend%20version-5.11.2-005EA5?logo=gov.uk&style=flat)
 
 **GOV.UK Frontend Flask is a [community tool](https://design-system.service.gov.uk/community/resources-and-tools/) of the [GOV.UK Design System](https://design-system.service.gov.uk/). The Design System team is not responsible for it and cannot support you with using it. Contact the [maintainers](#contributors) directly if you need [help](#support) or you want to request a feature.**
 
@@ -16,10 +16,10 @@ This is a template [Flask](https://flask.palletsprojects.com) app using the [GOV
 The app is provided intentionally bare, with just the essential parts that all services need, such as error pages, accessibility statement, cookie banner, cookie page and privacy notice. It uses a number of other packages to provide the [features](#features) described below with sensible and best-practice defaults. Please read the [next steps](#next-steps) section for guidance on how to start building out your app on top of this template.
 
 # Versioning 
-- Python: 3.12
-- Node.js: 22.12.0
-- npm: 10.9.0
-- pip: 24.3.1
+- Python: 3.13
+- Node.js: 24.19.0
+- npm: 10.9.3
+- pip: 25.2
 
 # Getting started
 
