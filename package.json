@@ -10,7 +10,7 @@
     "npm": ">= 10.1.0"
   },
   "dependencies": {
-    "govuk-frontend": ">= 5.11.2"
+    "govuk-frontend": ">= 5.13.0"
   },
   "devDependencies": {
     "esbuild": ">= 0.24.2",
