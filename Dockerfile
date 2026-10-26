@@ -1,6 +1,6 @@
 ARG BASE_IMAGE=python:3.13-slim
 
-FROM node:26.12.1 as node_build
+FROM node:26.12.1-alpine as node_build
 WORKDIR /home/node
 COPY esbuild.config.js package.json package-lock.json ./
 COPY app/static/src app/static/src
