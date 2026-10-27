@@ -17,7 +17,7 @@ The app is provided intentionally bare, with just the essential parts that all s
 
 # Versioning 
 - Python: 3.13
-- Node.js: 24.19.0
+- Node.js: 26.12.1
 - npm: 10.9.3
 - pip: 25.2
 
